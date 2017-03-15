@@ -15,46 +15,90 @@
 <head>
     <title>Title</title>
     <meta charset="UTF-8">
-</head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script></head>
 <body>
-    <h4>Kelime Ekleyin</h4>
-    <form:form modelAttribute="word" action="/yenikelime.html" method="post">
-        Kelime: <form:input type="text" id="vocable" path="vocable"/> <br/>
-                <form:errors path="vocable"/>
-        Tipi:
-        <form:select path="usage.typeName">
-            <form:options items="${usageTypes}" itemValue="typeName" itemLabel="typeName" />
-        </form:select>
+    <div class="jumbotron container-fluid">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Kelime Ekle
+                    </div>
+                    <div class="panel-body">
+                        <form:form modelAttribute="word" action="/yenikelime.html" method="post">
+                            <div class="form-group">
+                                <label for="vocable">Kelime</label>
+                                <form:input type="text" id="vocable" path="vocable" class="form-control"/>
+                                <form:errors path="vocable"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipi</label>
+                                <form:select path="usage.typeName" class="form-control">
+                                    <form:options items="${usageTypes}" itemValue="typeName" itemLabel="typeName" />
+                                </form:select>
+                            </div>
+                            <button type="submit" class="btn btn-success">Kaydet</button>
+                        </form:form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Çeviri Ekle
+                    </div>
+                    <div class="panel-body">
+                        <form:form modelAttribute="meaning" action="/yenianlam.html" method="post">
+                            <div class="form-group">
+                                <label>Kelime Seçin</label>
+                                <form:select path="word.id" class="form-control">
+                                    <form:options items="${wordList}" itemValue="id" itemLabel="wordAndUsage"  />
+                                </form:select>
+                            </div>
+                            <div class="form-group">
+                                <label for="lexicalMeaning">Sözlük Anlamı</label>
+                                <form:input type="text" id="lexicalMeaning" path="lexicalMeaning" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="meaningTranslation">Çevirisi</label>
+                                <form:input type="text" id="meaningTranslation" path="translation" class="form-control"/><br/>
+                            </div>
+                            <button type="submit" class="btn btn-success">Kaydet</button>
+                        </form:form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Örnek Cümle
+                    </div>
+                    <div class="panel-body">
+                        <form:form modelAttribute="example" action="/yeniornek.html" method="post">
+                            <div class="form-group">
+                                <label>Anlam Seçin</label>
+                                <form:select path="meaning.id" class="form-control">
+                                    <form:options items="${meaningList}" itemValue="id" itemLabel="lexicalMeaning"/>
+                                </form:select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cümleyi Yazın</label
+                                <form:input type="text" path="sentence" id="sentence" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Cümle Çevirisi</label>
+                                <form:input path="sentenceTranslation" id="sentenceTranslation" type="text" class="form-control"/>
+                            </div>
+                            <button type="submit" class="btn btn-success">Kaydet</button>
+                        </form:form>
+                    </div>
+                </div>
 
-        <button type="submit">Ekle</button>
-    </form:form>
-
-
-    <h4>Çeviri Ekle</h4>
-    <form:form modelAttribute="meaning" action="/yenianlam.html" method="post">
-        Kelime Seçin
-        <form:select path="word.id">
-            <form:options items="${wordList}" itemValue="id" itemLabel="wordAndUsage"  />
-        </form:select>
-        Sözlük Anlamı <form:input type="text" id="lexicalMeaning" path="lexicalMeaning"/> <br/>
-        Çevirisi <form:input type="text" id="meaningTranslation" path="translation"/><br/>
-
-        <button type="submit">Kaydet</button>
-    </form:form>
-
-    <h4>Örnek Cümle Ekle</h4>
-    <form:form modelAttribute="example" action="/yeniornek.html" method="post">
-        Anlam Seçin
-        <form:select path="meaning.id">
-            <form:options items="${meaningList}" itemValue="id" itemLabel="lexicalMeaning"/><br/>
-        </form:select>
-        Cümleyi yazın
-        <form:input type="text" path="sentence" id="sentence"/>
-        Cümle Çevirisi(Boş Bırakılabilir)
-        <form:input path="sentenceTranslation" id="sentenceTranslation" type="text"/>
-
-        <button type="submit">Kaydet</button>
-
-    </form:form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
