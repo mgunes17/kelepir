@@ -81,4 +81,12 @@ public class Meaning implements Serializable {
     public void setExampleList(List<Example> exampleList) {
         this.exampleList = exampleList;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

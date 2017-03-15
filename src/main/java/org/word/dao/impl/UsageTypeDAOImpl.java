@@ -3,27 +3,27 @@ package org.word.dao.impl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
-import org.word.dao.WordDAO;
-import org.word.model.Word;
+import org.word.dao.UsageTypeDAO;
+import org.word.model.UsageType;
 
 import java.util.List;
 
 /**
- * Created by mustafa on 08.03.2017.
+ * Created by mustafa on 10.03.2017.
  */
 
 @Repository
-public class WordDAOImpl implements WordDAO {
+public class UsageTypeDAOImpl implements UsageTypeDAO {
     private SessionFactory sessionFactory;
 
-    public void save(Word word) {
+    public List<UsageType> getAllUsageTypes() {
         Session session = getCurrentSession();
-        session.persist(word);
+        return session.createCriteria(UsageType.class).list();
     }
 
-    public List<Word> getAllWords() {
+    public UsageType getUsageType(String name) {
         Session session = getCurrentSession();
-        return session.createCriteria(Word.class).list();
+        return session.get(UsageType.class, name);
     }
 
     private Session getCurrentSession() {
@@ -33,4 +33,5 @@ public class WordDAOImpl implements WordDAO {
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
+
 }

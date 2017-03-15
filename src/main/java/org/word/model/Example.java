@@ -23,7 +23,7 @@ public class Example implements Serializable {
     private String sentence;
 
     @Column(name = "translation")
-    private String translation;
+    private String sentenceTranslation;
 
     public Example() {
         //no-arg cons
@@ -34,10 +34,10 @@ public class Example implements Serializable {
         this.sentence = sentence;
     }
 
-    public Example(Meaning meaning, String sentence, String translation) {
+    public Example(Meaning meaning, String sentence, String sentenceTranslation) {
         this.meaning = meaning;
         this.sentence = sentence;
-        this.translation = translation;
+        this.sentenceTranslation = sentenceTranslation;
     }
 
     //getter-setter
@@ -57,11 +57,11 @@ public class Example implements Serializable {
         this.sentence = sentence;
     }
 
-    public String getTranslation() {
-        return translation;
+    public String getSentenceTranslation() {
+        return sentenceTranslation;
     }
 
-    public void setTranslation(String translation) {
-        this.translation = translation;
+    public void setSentenceTranslation(String sentenceTranslation) {
+        this.sentenceTranslation = sentenceTranslation;
     }
 }

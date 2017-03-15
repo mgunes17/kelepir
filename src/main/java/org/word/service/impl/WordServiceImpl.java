@@ -6,6 +6,8 @@ import org.word.dao.WordDAO;
 import org.word.model.Word;
 import org.word.service.WordService;
 
+import java.util.List;
+
 
 /**
  * Created by mustafa on 08.03.2017.
@@ -18,6 +20,11 @@ public class WordServiceImpl implements WordService {
     @Transactional
     public void save(Word word) {
         wordDAO.save(word);
+    }
+
+    @Transactional
+    public List<Word> allWords() {
+        return wordDAO.getAllWords();
     }
 
     public void setWordDAO(WordDAO wordDAO) {

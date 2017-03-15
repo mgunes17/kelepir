@@ -4,13 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <bean class="org.controller.MainController">
-        <property name="wordService" ref="wordService"/>
-        <property name="word" ref="word"/>
-        <property name="meaning" ref="meaning"/>
-        <property name="example" ref="example"/>
-    </bean>
-
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
@@ -52,33 +45,66 @@
 
     </bean>
 
+    <!-- Controller -->
+    <bean class="org.controller.WordController">
+        <property name="wordService" ref="wordService"/>
+        <property name="usageTypeService" ref="usageTypeService"/>
+        <property name="wordValidator" ref="wordValidator"/>
+        <property name="meaningService" ref="meaningService"/>
+        <property name="exampleService" ref="exampleService"/>
+    </bean>
+
+
+    <!-- Service -->
     <bean name="wordService" class="org.word.service.impl.WordServiceImpl">
         <property name="wordDAO" ref="wordDao"/>
     </bean>
+    <bean name="usageTypeService" class="org.word.service.impl.UsageTypeServiceImpl">
+        <property name="usageTypeDAO" ref="usageTypeDao"/>
+    </bean>
+    <bean name="meaningService" class="org.word.service.impl.MeaningServiceImpl">
+        <property name="meaningDAO" ref="meaningDAO"/>
+    </bean>
+    <bean name="exampleService" class="org.word.service.impl.ExampleServiceImpl">
+        <property name="exampleDAO" ref="exampleDAO"/>
+    </bean>
+
+    <!-- DAO -->
     <bean name="wordDao" class="org.word.dao.impl.WordDAOImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
+    <bean name="usageTypeDao" class="org.word.dao.impl.UsageTypeDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean name="meaningDAO" class="org.word.dao.impl.MeaningDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean name="exampleDAO" class="org.word.dao.impl.ExampleDAOImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
+    <!-- Model -->
     <bean name="word" class="org.word.model.Word">
         <property name="meaningList">
             <list></list>
         </property>
+        <property name="usage" ref="usageType"/>
     </bean>
-
     <bean name="meaning" class="org.word.model.Meaning">
         <property name="word" ref="word"/>
         <property name="exampleList">
             <list></list>
         </property>
     </bean>
-
     <bean name="example" class="org.word.model.Example">
         <property name="meaning" ref="meaning"/>
     </bean>
+    <bean name="usageType" class="org.word.model.UsageType"/>
 
+    <!-- Validator -->
+    <bean name="wordValidator" class="org.validator.WordValidator"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"
                           proxy-target-class="true" />
-
 
 </beans>

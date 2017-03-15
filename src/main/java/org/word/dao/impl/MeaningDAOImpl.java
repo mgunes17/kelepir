@@ -3,29 +3,30 @@ package org.word.dao.impl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
-import org.word.dao.WordDAO;
-import org.word.model.Word;
+import org.word.dao.MeaningDAO;
+import org.word.model.Meaning;
 
 import java.util.List;
 
 /**
- * Created by mustafa on 08.03.2017.
+ * Created by mustafa on 14.03.2017.
  */
 
 @Repository
-public class WordDAOImpl implements WordDAO {
+public class MeaningDAOImpl implements MeaningDAO {
     private SessionFactory sessionFactory;
 
-    public void save(Word word) {
+    public void saveMeaning(Meaning meaning) {
         Session session = getCurrentSession();
-        session.persist(word);
+        session.save(meaning);
     }
 
-    public List<Word> getAllWords() {
+    public List<Meaning> getAllMeanings() {
         Session session = getCurrentSession();
-        return session.createCriteria(Word.class).list();
+        return session.createCriteria(Meaning.class).list();
     }
 
+    //getter-setter
     private Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }

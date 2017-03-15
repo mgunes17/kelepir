@@ -23,8 +23,9 @@ public class Word implements Serializable {
     @Column(name = "vocable", nullable = false)
     private String vocable;
 
-    @Column(name = "usage", nullable = false)
-    private String usage;
+    @ManyToOne
+    @JoinColumn(name = "usage", nullable = false)
+    private UsageType usage;
 
     @Column(name = "record_date", nullable = false)
     private Date recordDate;
@@ -34,11 +35,14 @@ public class Word implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Meaning> meaningList;
 
+    @Transient
+    private String wordAndUsage;
+
     public Word() {
         //no-arg cons
     }
 
-    public Word(String vocable, String usage) {
+    public Word(String vocable, UsageType usage) {
         this.vocable = vocable;
         this.usage = usage;
     }
@@ -56,11 +60,11 @@ public class Word implements Serializable {
         this.vocable = vocable;
     }
 
-    public String getUsage() {
+    public UsageType getUsage() {
         return usage;
     }
 
-    public void setUsage(String usage) {
+    public void setUsage(UsageType usage) {
         this.usage = usage;
     }
 
@@ -78,5 +82,13 @@ public class Word implements Serializable {
 
     public void setMeaningList(List<Meaning> meaningList) {
         this.meaningList = meaningList;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getWordAndUsage() {
+        return vocable + " (" + usage.getTypeName() +  ")";
     }
 }

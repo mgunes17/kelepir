@@ -1,7 +1,7 @@
 CREATE TABLE word (
 	id int primary key,
 	vocable varchar(70) NOT NULL,
-	usage varchar(70) NOT NULL,
+	usage varchar(50) REFERENCES usage_type(type_name),
 	record_date timestamp NOT NULL
 );
 
@@ -17,4 +17,10 @@ CREATE TABLE example (
 	meaning int REFERENCES meaning(id) NOT NULL,
 	sentence varchar(150) NOT NULL,
 	translation varchar(150)
+);
+
+CREATE TABLE usage_type (
+	type_name varchar(50) primary key,
+	abbreviation varchar(10) unique,
+	translation varchar(50)
 );
